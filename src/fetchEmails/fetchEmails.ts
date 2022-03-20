@@ -3,7 +3,7 @@ class Email {
     constructor(data: any) {
         this.data = data;
     }
-    static fetch = (): Email => {
+    static fetch = async (): Promise<Email> => {
         return new Email('someData')
     }
 }
