@@ -8,6 +8,6 @@
     "typescript": "^4.6.2"
   },
   "scripts": {
-  	"start": "tsc index.ts && node index.js || say 'something went wrong'"
+  	"start": "tsc --project tsconfig.json && node ./build/index.js || say 'something went wrong'"
   }
 }
