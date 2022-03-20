@@ -1,3 +1,5 @@
 import Email from "./fetchEmails/fetchEmails";
 
-console.log(Email.fetch().data)
+Email.fetch().then((data) => {
+    console.log(data)
+})
