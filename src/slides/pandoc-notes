@@ -1,0 +1,1 @@
+find . -name '*.md' -print0 | xargs -0 -I file pandoc --standalone --output file.html file
