@@ -9,4 +9,4 @@ date: September 22, 2020
 
 - Truly cross-platform
 
-[next](/src/slides/103-pandoc.md.html)
+[next](/103-pandoc.html)

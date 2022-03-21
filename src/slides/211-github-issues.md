@@ -46,4 +46,4 @@ date: September 22, 2020
     })
 </script>
 
-[next](/src/slides/210-github-issues.html)
+[next](/300-email.html)

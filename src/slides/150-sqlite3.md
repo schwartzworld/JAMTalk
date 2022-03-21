@@ -7,4 +7,4 @@ date: September 22, 2020
 
 A free database engine that stores your databases as single file.
 
-[next](/src/slides/151-sqlite3.md.html)
+[next](/151-sqlite3.html)

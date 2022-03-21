@@ -13,4 +13,4 @@ date: September 22, 2020
 - Lots of tooling exists to support it
 - Most email clients have built in WYSIWYG
 
-[next](/src/slides/301-email.html)
+[next](/301-email.html)

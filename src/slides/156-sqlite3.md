@@ -10,4 +10,4 @@ date: September 22, 2020
 - Requires learning SQL
 - Non-existant type system by default
 
-[next](/src/slides/157-sqlite3.md.html)
+[next](/157-sqlite3.html)

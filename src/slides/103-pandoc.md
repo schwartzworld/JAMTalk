@@ -10,4 +10,4 @@ date: September 22, 2020
 - Truly cross-platform
 - Converts multiple flavors of MD to HTML quickly and efficiently
 
-[next](/src/slides/104-pandoc.md.html)
+[next](/104-pandoc.html)

@@ -11,4 +11,4 @@ date: September 22, 2020
 - Converts multiple flavors of MD to HTML quickly and efficiently
 - Also handles PDF, EPUB, LaTeX, revealJs
 
-[next](/src/slides/105-pandoc.md.html)
+[next](/105-pandoc.html)

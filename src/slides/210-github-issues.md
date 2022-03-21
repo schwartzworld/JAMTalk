@@ -17,4 +17,4 @@ date: September 22, 2020
         .then(async (d) => code.innerHTML = JSON.stringify(await d.json(), null, 2))
 </script>
 
-[next](/src/slides/210-github-issues.html)
+[next](/211-github-issues.html)

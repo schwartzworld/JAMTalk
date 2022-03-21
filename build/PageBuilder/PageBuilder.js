@@ -64,14 +64,66 @@ exports.__esModule = true;
 exports.PageBuilder = void 0;
 var FS_1 = require("../FS/FS");
 var Post_1 = require("../Post/Post");
+var ChildProcess_1 = require("../ChildProcess/ChildProcess");
+var head = "\n<!doctype html>\n<html class=\"no-js\" lang=\"\">\n\n<head>\n  <meta charset=\"utf-8\">\n  <title>schwartz.world</title>\n  <link rel=\"stylesheet\" href=\"https://unpkg.com/sakura.css/css/sakura.css\" type=\"text/css\">\n  <style>\n    .qr {\n        position: fixed;\n        right: 3rem;\n        top: 3rem;\n    }\n  </style>\n</head>\n\n<body>\n";
+var foot = "\n</body>\n\n</html>\n";
 var PageBuilder = /** @class */ (function () {
     function PageBuilder() {
     }
     var _a;
     _a = PageBuilder;
-    PageBuilder.generateHTML = function (posts) { return __awaiter(void 0, void 0, void 0, function () {
+    PageBuilder.savePosts = function (postMap) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(_a, function (_b) {
-            return [2 /*return*/, posts.map(function (post) { return post.render(); }).join('\n')];
+            (__spreadArray([], __read(postMap.entries()), false).forEach(function (_b) {
+                var _c = __read(_b, 2), title = _c[0], html = _c[1];
+                FS_1.FS.writeFile("./site/".concat(title, ".html"), html)
+                    .then(function () {
+                    console.log("".concat(title, " built"));
+                });
+            }));
+            return [2 /*return*/];
+        });
+    }); };
+    PageBuilder.wrap = function (htmlString) {
+        return head + htmlString + foot;
+    };
+    PageBuilder.generateQRCode = function (title, link) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(_a, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, ChildProcess_1.ChildProcess.exec("qrencode -o \"./site/qrs/".concat(title, ".png\" \"").concat(link, "\""))];
+                case 1:
+                    _b.sent();
+                    return [2 /*return*/, "<img class=\"qr\" src=\"/qrs/".concat(title, ".png\" alt=\"").concat(link, "\" />")];
+            }
+        });
+    }); };
+    PageBuilder.generateHTML = function (posts) { return __awaiter(void 0, void 0, void 0, function () {
+        var map;
+        return __generator(_a, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    map = new Map();
+                    return [4 /*yield*/, Promise.all(posts.map(function (post) { return __awaiter(void 0, void 0, void 0, function () {
+                            var body, replies, replyLink, QR;
+                            return __generator(this, function (_b) {
+                                switch (_b.label) {
+                                    case 0: return [4 /*yield*/, post.renderBody()];
+                                    case 1:
+                                        body = _b.sent();
+                                        replies = post.renderReplies();
+                                        replyLink = post.getReplyLink();
+                                        return [4 /*yield*/, PageBuilder.generateQRCode(post.title, post.replyLink())];
+                                    case 2:
+                                        QR = _b.sent();
+                                        map.set(post.title, PageBuilder.wrap(body + QR + replyLink + replies));
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); }))];
+                case 1:
+                    _b.sent();
+                    return [2 /*return*/, map];
+            }
         });
     }); };
     PageBuilder.createPosts = function (postTitles) { return __awaiter(void 0, void 0, void 0, function () {
@@ -95,7 +147,7 @@ var PageBuilder = /** @class */ (function () {
         });
     }); };
     PageBuilder.buildNew = function (postTitles) { return __awaiter(void 0, void 0, void 0, function () {
-        var posts, html;
+        var posts, htmlMap, success;
         return __generator(_a, function (_b) {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, PageBuilder.createPosts(postTitles)];
@@ -103,8 +155,10 @@ var PageBuilder = /** @class */ (function () {
                     posts = _b.sent();
                     return [4 /*yield*/, PageBuilder.generateHTML(posts)];
                 case 2:
-                    html = _b.sent();
-                    console.log(html);
+                    htmlMap = _b.sent();
+                    return [4 /*yield*/, PageBuilder.savePosts(htmlMap)];
+                case 3:
+                    success = _b.sent();
                     return [2 /*return*/];
             }
         });
@@ -126,7 +180,7 @@ var PageBuilder = /** @class */ (function () {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, FS_1.FS.readdir('./src/slides')];
                 case 1:
-                    files = _b.sent();
+                    files = (_b.sent()).filter(function (f) { return f.includes('.md'); });
                     return [2 /*return*/, __spreadArray([], __read(new Set(files.map(function (f) { return f.split('.')[0]; }))), false)];
             }
         });

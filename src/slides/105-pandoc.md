@@ -12,4 +12,4 @@ date: September 22, 2020
 - Also handles PDF, EPUB, LaTeX, revealJs
 - Can produce snippets or full html pages
 
-[next](/src/slides/106-pandoc.md.html)
+[next](/106-pandoc.html)

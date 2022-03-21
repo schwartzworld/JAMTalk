@@ -1,7 +1,8 @@
 ---
-title: My Document
-date: September 22, 2020
+title: Unconventional JAMStack
+date: March 22, 2022
 ---
 
-## Test
-some text
+## Unconventional JAMStack
+
+[next](/2-aboutme.html)

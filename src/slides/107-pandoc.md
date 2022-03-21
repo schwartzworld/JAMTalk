@@ -11,4 +11,4 @@ date: September 22, 2020
 - Open source but in a "hard" language?
 - Difficult to come up with lists of cons
 
-[next](/src/slides/150-sqlite3.md.html)
+[next](/150-sqlite3.html)

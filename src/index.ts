@@ -1,7 +1,7 @@
 import Email from "./Email/Email";
 import {PageBuilder} from "./PageBuilder/PageBuilder";
 
-const main = async () => {
+export const main = async () => {
     const newPostTitles = await Email.fetch();
     const x = await PageBuilder.buildNew(newPostTitles)
 

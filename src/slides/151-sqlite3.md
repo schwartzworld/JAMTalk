@@ -9,4 +9,4 @@ date: September 22, 2020
 
 - Comes pre-installed on pretty much every computer
 
-[next](/src/slides/152-sqlite3.md.html)
+[next](/152-sqlite3.html)

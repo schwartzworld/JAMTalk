@@ -11,4 +11,4 @@ date: September 22, 2020
 - Aggregating diverse data sources
 - Pushing the A in JAM 
 
-[next](/src/slides/210-github-issues.md.html)
+[next](/210-github-issues.html)

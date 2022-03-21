@@ -7,7 +7,7 @@ export class ChildProcess {
                 if (err) {
                     reject(`exec error: ${err}`);
                 }
-                console.error(stderr)
+                if (stderr) console.error(stderr)
                 resolve(stdout);
             });
         })

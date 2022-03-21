@@ -60,26 +60,48 @@ var getReplies = function (title) {
 };
 var Reply = /** @class */ (function () {
     function Reply(rString) {
-        var _a = __read(rString.split('|'), 6), html = _a[0], text = _a[1], email = _a[3], name = _a[4], dateString = _a[5];
-        this.html = decodeURIComponent(html).replace("''", "'");
-        this.text = decodeURIComponent(text).replace("''", "'");
+        var _a = __read(rString.split('|'), 7), html = _a[0], text = _a[1], subject = _a[3], email = _a[4], name = _a[5], dateString = _a[6];
+        this.html = decodeURIComponent(html).replace(/''/g, "'");
+        this.text = decodeURIComponent(text).replace(/''/g, "'");
         this.email = email;
         this.name = name;
         this.date = new Date(dateString);
+        this.subject = decodeURIComponent(subject).replace(/''/g, "'");
     }
     return Reply;
 }());
 var Post = /** @class */ (function () {
-    function Post(replies) {
+    function Post(_a) {
+        var title = _a.title, replies = _a.replies;
+        var _this = this;
+        this.renderBody = function () { return __awaiter(_this, void 0, void 0, function () {
+            var body;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, ChildProcess_1.ChildProcess.exec("pandoc ./src/slides/".concat(this.title, ".md"))];
+                    case 1:
+                        body = _a.sent();
+                        return [2 /*return*/, body];
+                }
+            });
+        }); };
+        this.replyLink = function () {
+            var _a = __read(process.env.USERNAME.split('@'), 2), username = _a[0], extension = _a[1];
+            return "mailto:".concat(username, "+").concat(_this.title, "@").concat(extension);
+        };
+        this.getReplyLink = function () {
+            return "<a href=\"".concat(_this.replyLink(), "\">Email to leave a comment!</a>");
+        };
         this.replies = replies.filter(function (r) { return !!r.name; });
+        this.title = title;
     }
-    Post.prototype.render = function () {
+    Post.prototype.renderReplies = function () {
         return this.replies.map(function (reply) {
-            return "\n        <figure>\n            <blockquote cite=\"".concat(reply.email, "\">\n                ").concat(reply.html, "\n            </blockquote>\n            <figcaption>\u2014").concat(reply.name, "</figcaption>\n        </figure>\n        ");
+            return "\n            <figure>\n                <blockquote cite=\"".concat(reply.name, "\">\n                <h5>").concat(reply.subject, "</h5>\n                ").concat(reply.html, "\n                </blockquote>\n                <figcaption>\u2014").concat(reply.name, "</figcaption>\n            </figure>\n            ");
         }).join('');
     };
-    Post.empty = function () {
-        return new Post([]);
+    Post.empty = function (title) {
+        return new Post({ title: title, replies: [] });
     };
     Post.create = function (title) {
         return __awaiter(this, void 0, void 0, function () {
@@ -90,11 +112,13 @@ var Post = /** @class */ (function () {
                         _a.trys.push([0, 2, , 3]);
                         return [4 /*yield*/, getReplies(title)];
                     case 1:
-                        replies = _a.sent();
-                        return [2 /*return*/, new Post(replies.split(/\r?\n/).map(function (r) { return new Reply(r); }))];
+                        replies = (_a.sent())
+                            .split(/\r?\n/)
+                            .map(function (r) { return new Reply(r); });
+                        return [2 /*return*/, new Post({ title: title, replies: replies })];
                     case 2:
                         e_1 = _a.sent();
-                        return [2 /*return*/, Post.empty()];
+                        return [2 /*return*/, Post.empty(title)];
                     case 3: return [2 /*return*/];
                 }
             });

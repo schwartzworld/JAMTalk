@@ -10,4 +10,4 @@ date: September 22, 2020
 - Comes pre-installed on pretty much every computer
 - Single file databases can be used as a file format or included in version control
 
-[next](/src/slides/153-sqlite3.md.html)
+[next](/153-sqlite3.html)

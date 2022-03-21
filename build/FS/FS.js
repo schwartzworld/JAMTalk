@@ -16,6 +16,28 @@ var FS = /** @class */ (function () {
             });
         });
     };
+    FS.readFile = function (filename) {
+        return new Promise(function (resolve, reject) {
+            fs.readFile(filename, "utf8", function (err, data) {
+                if (err)
+                    reject(err);
+                else {
+                    resolve(data);
+                }
+            });
+        });
+    };
+    FS.writeFile = function (filename, data) {
+        return new Promise(function (resolve, reject) {
+            fs.writeFile(filename, data, function (err) {
+                if (err)
+                    reject(err);
+                else {
+                    resolve();
+                }
+            });
+        });
+    };
     return FS;
 }());
 exports.FS = FS;

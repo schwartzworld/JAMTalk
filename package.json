@@ -10,7 +10,9 @@
     "yapople": "^0.4.8"
   },
   "scripts": {
-    "start": "tsc --project tsconfig.json && node ./build/index.js || say 'something went wrong'"
+    "build": "tsc --project tsconfig.json",
+    "start": "tsc --project tsconfig.json && node ./build/index.js || say 'something went wrong'",
+    "watch": "node ./build/watch.js || say 'something went wrong'"
   },
   "devDependencies": {
     "@types/node": "^17.0.21"

@@ -7,4 +7,4 @@ date: September 22, 2020
 
 A free program writting in Haskell for converting between markdown formats.
 
-[next](/src/slides/11-pandoc.md.html)
+[next](/11-pandoc.html)

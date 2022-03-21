@@ -11,7 +11,8 @@ var ChildProcess = /** @class */ (function () {
                 if (err) {
                     reject("exec error: ".concat(err));
                 }
-                console.error(stderr);
+                if (stderr)
+                    console.error(stderr);
                 resolve(stdout);
             });
         });

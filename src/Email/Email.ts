@@ -25,25 +25,31 @@ class Email {
         this.data = data;
     }
 
-    static save = async (m: Message): Promise<void> => {
-        const start = `sqlite3 ./build/db/${m.subject}.db`
-        const c = `${start} "CREATE TABLE if not exists replies (html TEXT, body TEXT, messageId TEXT, fromAddress TEXT, fromName TEXT, date TEXT);"`
-        await ChildProcess.exec(c)
+    static initDB = async (name: string) => {
+        const c = `sqlite3 ./build/db/${name}.db "CREATE TABLE if not exists replies (html TEXT, body TEXT, messageId TEXT, subject TEXT, fromAddress TEXT, fromName TEXT, date TEXT);"`
+        return await ChildProcess.exec(c)
+    }
 
-        const c2 = `${start} "INSERT INTO replies (html, body, fromAddress, fromName, date) VALUES('${sanitize(m.html)}', '${sanitize(m.text)}', '${m.from[0].address}', '${m.from[0].name}', '${m.date.toUTCString()}');"`
+    static save = async (m: Message, title: string): Promise<void> => {
+        const c2 = `sqlite3 ./build/db/${title}.db "INSERT INTO replies (html, body, fromAddress, fromName, date, subject) VALUES('${sanitize(m.html)}', '${sanitize(m.text)}', '${m.from[0].address}', '${m.from[0].name}', '${m.date.toUTCString()}', '${sanitize(m.subject)}');"`
         await ChildProcess.exec(c2);
     }
 
     static fetch = async (): Promise<string[]> => {
         const titles = await PageBuilder.getPostNames();
+        await Promise.all(titles.map(async (title) => {
+            return await Email.initDB(title)
+        }));
         await client.connect();
         const messages: Message[] = await client.retrieveAll();
         await client.quit();
 
         const newReplies: string[] = (await Promise.all(messages.map(async m => {
-            if (titles.includes(m.subject)) {
-                await Email.save(m);
-                return m.subject;
+            const [, afterPlus] = m.to[0].address.split('+');
+            const [postTitle] = afterPlus.split('@');
+            if (titles.includes(postTitle)) {
+                await Email.save(m, postTitle);
+                return postTitle;
             }
             return null;
         }))).filter(m => !!m);

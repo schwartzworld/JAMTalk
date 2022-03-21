@@ -11,4 +11,4 @@ date: September 22, 2020
 - Single file databases can be used as a file format or included in version control
 - Has functionality for validating, parsing, searching and _outputting_ JSON
 
-[next](/src/slides/154-sqlite3.md.html)
+[next](/154-sqlite3.html)

@@ -12,4 +12,4 @@ date: September 22, 2020
 - Has functionality for validating, parsing, searching and _outputting_ JSON
 - Better testing than any other software you've ever used
 
-[next](/src/slides/155-sqlite3.md.html)
+[next](/155-sqlite3.html)

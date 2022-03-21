@@ -7,4 +7,4 @@ date: September 22, 2020
 
 - Users can respond to blog comments 
 
-[next](/src/slides/301-email.html)
+[next](/301-email.html)

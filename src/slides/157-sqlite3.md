@@ -11,4 +11,4 @@ date: September 22, 2020
 - Non-existant type system by default
 - Some computers might have old versions installed
 
-[next](/src/slides/180-node.md.html)
+[next](/180-node.html)

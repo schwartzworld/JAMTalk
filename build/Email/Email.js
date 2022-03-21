@@ -83,19 +83,25 @@ var Email = /** @class */ (function () {
     }
     var _a;
     _a = Email;
-    Email.save = function (m) { return __awaiter(void 0, void 0, void 0, function () {
-        var start, c, c2;
+    Email.initDB = function (name) { return __awaiter(void 0, void 0, void 0, function () {
+        var c;
         return __generator(_a, function (_b) {
             switch (_b.label) {
                 case 0:
-                    start = "sqlite3 ./build/db/".concat(m.subject, ".db");
-                    c = "".concat(start, " \"CREATE TABLE if not exists replies (html TEXT, body TEXT, messageId TEXT, fromAddress TEXT, fromName TEXT, date TEXT);\"");
+                    c = "sqlite3 ./build/db/".concat(name, ".db \"CREATE TABLE if not exists replies (html TEXT, body TEXT, messageId TEXT, subject TEXT, fromAddress TEXT, fromName TEXT, date TEXT);\"");
                     return [4 /*yield*/, ChildProcess_1.ChildProcess.exec(c)];
-                case 1:
-                    _b.sent();
-                    c2 = "".concat(start, " \"INSERT INTO replies (html, body, fromAddress, fromName, date) VALUES('").concat(sanitize(m.html), "', '").concat(sanitize(m.text), "', '").concat(m.from[0].address, "', '").concat(m.from[0].name, "', '").concat(m.date.toUTCString(), "');\"");
+                case 1: return [2 /*return*/, _b.sent()];
+            }
+        });
+    }); };
+    Email.save = function (m, title) { return __awaiter(void 0, void 0, void 0, function () {
+        var c2;
+        return __generator(_a, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    c2 = "sqlite3 ./build/db/".concat(title, ".db \"INSERT INTO replies (html, body, fromAddress, fromName, date, subject) VALUES('").concat(sanitize(m.html), "', '").concat(sanitize(m.text), "', '").concat(m.from[0].address, "', '").concat(m.from[0].name, "', '").concat(m.date.toUTCString(), "', '").concat(sanitize(m.subject), "');\"");
                     return [4 /*yield*/, ChildProcess_1.ChildProcess.exec(c2)];
-                case 2:
+                case 1:
                     _b.sent();
                     return [2 /*return*/];
             }
@@ -108,29 +114,42 @@ var Email = /** @class */ (function () {
                 case 0: return [4 /*yield*/, PageBuilder_1.PageBuilder.getPostNames()];
                 case 1:
                     titles = _b.sent();
-                    return [4 /*yield*/, client.connect()];
-                case 2:
-                    _b.sent();
-                    return [4 /*yield*/, client.retrieveAll()];
-                case 3:
-                    messages = _b.sent();
-                    return [4 /*yield*/, client.quit()];
-                case 4:
-                    _b.sent();
-                    return [4 /*yield*/, Promise.all(messages.map(function (m) { return __awaiter(void 0, void 0, void 0, function () {
+                    return [4 /*yield*/, Promise.all(titles.map(function (title) { return __awaiter(void 0, void 0, void 0, function () {
                             return __generator(this, function (_b) {
                                 switch (_b.label) {
+                                    case 0: return [4 /*yield*/, Email.initDB(title)];
+                                    case 1: return [2 /*return*/, _b.sent()];
+                                }
+                            });
+                        }); }))];
+                case 2:
+                    _b.sent();
+                    return [4 /*yield*/, client.connect()];
+                case 3:
+                    _b.sent();
+                    return [4 /*yield*/, client.retrieveAll()];
+                case 4:
+                    messages = _b.sent();
+                    return [4 /*yield*/, client.quit()];
+                case 5:
+                    _b.sent();
+                    return [4 /*yield*/, Promise.all(messages.map(function (m) { return __awaiter(void 0, void 0, void 0, function () {
+                            var _b, afterPlus, _c, postTitle;
+                            return __generator(this, function (_d) {
+                                switch (_d.label) {
                                     case 0:
-                                        if (!titles.includes(m.subject)) return [3 /*break*/, 2];
-                                        return [4 /*yield*/, Email.save(m)];
+                                        _b = __read(m.to[0].address.split('+'), 2), afterPlus = _b[1];
+                                        _c = __read(afterPlus.split('@'), 1), postTitle = _c[0];
+                                        if (!titles.includes(postTitle)) return [3 /*break*/, 2];
+                                        return [4 /*yield*/, Email.save(m, postTitle)];
                                     case 1:
-                                        _b.sent();
-                                        return [2 /*return*/, m.subject];
+                                        _d.sent();
+                                        return [2 /*return*/, postTitle];
                                     case 2: return [2 /*return*/, null];
                                 }
                             });
                         }); }))];
-                case 5:
+                case 6:
                     newReplies = (_b.sent()).filter(function (m) { return !!m; });
                     return [2 /*return*/, __spreadArray([], __read(new Set(newReplies)), false)];
             }

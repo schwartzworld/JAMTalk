@@ -12,4 +12,4 @@ date: September 22, 2020
 - First-class async support
 - String manipulation / templating very nice
 
-[next](/src/slides/200-data-sources.md.html)
+[next](/200-data-sources.html)

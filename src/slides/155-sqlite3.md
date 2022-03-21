@@ -9,4 +9,4 @@ date: September 22, 2020
 
 - Requires learning SQL
 
-[next](/src/slides/156-sqlite3.md.html)
+[next](/156-sqlite3.html)

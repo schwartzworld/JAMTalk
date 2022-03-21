@@ -11,47 +11,73 @@ class Reply {
     email: string;
     date: Date;
     name: string;
+    subject: string;
 
     constructor(rString: string) {
-        const [html, text, , email, name, dateString] = rString.split('|')
-        this.html = decodeURIComponent(html).replace("''", "'");
-        this.text = decodeURIComponent(text).replace("''", "'");
+        const [html, text, , subject, email, name, dateString] = rString.split('|')
+        this.html = decodeURIComponent(html).replace(/''/g, "'");
+        this.text = decodeURIComponent(text).replace(/''/g, "'");
         this.email = email;
         this.name = name;
         this.date = new Date(dateString)
+        this.subject = decodeURIComponent(subject).replace(/''/g, "'");
     }
+}
+
+interface PostConstructor {
+    replies: Reply[];
+    title: string;
 }
 
 export class Post {
     replies: Reply[];
+    title: string;
 
-    constructor(replies: Reply[]) {
+    constructor({title, replies}: PostConstructor) {
         this.replies = replies.filter(r => !!r.name);
+        this.title = title;
     }
 
-    render() {
+    renderBody = async (): Promise<string> => {
+        const body = await ChildProcess.exec(`pandoc ./src/slides/${this.title}.md`);
+        return body;
+    }
+
+    renderReplies(): string {
         return this.replies.map(reply => {
-        return `
-        <figure>
-            <blockquote cite="${reply.email}">
+
+            return `
+            <figure>
+                <blockquote cite="${reply.name}">
+                <h5>${reply.subject}</h5>
                 ${reply.html}
-            </blockquote>
-            <figcaption>—${reply.name}</figcaption>
-        </figure>
-        `
+                </blockquote>
+                <figcaption>—${reply.name}</figcaption>
+            </figure>
+            `
         }).join('');
     }
 
-    static empty() {
-        return new Post([])
+    replyLink = () => {
+        const [username, extension] = process.env.USERNAME.split('@');
+        return `mailto:${username}+${this.title}@${extension}`
+    }
+
+    getReplyLink = () => {
+        return `<a href="${this.replyLink()}">Email to leave a comment!</a>`
+    }
+    static empty(title: string) {
+        return new Post({title, replies: []})
     }
 
     static async create(title: string) {
         try {
-          const replies = await getReplies(title)
-          return new Post(replies.split(/\r?\n/).map(r => new Reply(r)));
+          const replies = (await getReplies(title))
+              .split(/\r?\n/)
+              .map(r => new Reply(r))
+          return new Post({ title, replies });
         } catch (e) {
-          return Post.empty();
+          return Post.empty(title);
         }
     }
 }

@@ -14,4 +14,4 @@ date: September 22, 2020
 - Built-in templating makes customizing the output
 - Easily create custom renderers in Lua
 
-[next](/src/slides/107-pandoc.md.html)
+[next](/107-pandoc.html)
