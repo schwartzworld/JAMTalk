@@ -1,0 +1,9 @@
+yarn run v1.22.4
+$ tsc --project tsconfig.json && node ./build/index.js || say 'something went wrong'
+ianschwartz.webdev@gmail.com meat12pie34
+hello
+Done in 2.94s.
+yarn run v1.22.4
+$ tsc --project tsconfig.json && node ./build/index.js || say 'something went wrong'
+ianschwartz.webdev@gmail.com meat12pie34
+Done in 2.84s.

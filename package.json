@@ -11,5 +11,8 @@
   },
   "scripts": {
     "start": "tsc --project tsconfig.json && node ./build/index.js || say 'something went wrong'"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21"
   }
 }
