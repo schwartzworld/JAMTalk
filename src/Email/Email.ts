@@ -16,7 +16,12 @@ const client = new Client({
 });
 
 const sanitize = (text: string) => {
-    return encodeURIComponent(text.replace(/'/g, "''"))
+    try {
+        return encodeURIComponent(text.replace(/'/g, "''"))
+    } catch (e) {
+        console.log(e.message, text);
+        return '';
+    }
 }
 
 class Email {
