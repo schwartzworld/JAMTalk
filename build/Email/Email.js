@@ -75,7 +75,13 @@ var client = new yapople_1.Client({
     password: process.env.PASSWORD
 });
 var sanitize = function (text) {
-    return encodeURIComponent(text.replace(/'/g, "''"));
+    try {
+        return encodeURIComponent(text.replace(/'/g, "''"));
+    }
+    catch (e) {
+        console.log(e.message, text);
+        return '';
+    }
 };
 var Email = /** @class */ (function () {
     function Email(data) {
