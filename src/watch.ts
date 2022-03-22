@@ -8,7 +8,7 @@ const run = async () => {
         console.log(`begin build ${now}`)
         await ChildProcess.exec(`yarn start`);
         console.log(`finish build ${now}`)
-        await ChildProcess.exec(`git add -A && git commit -m "new build ${now}" && git push`);
+        await ChildProcess.exec(`git add -A && git commit -m "new build ${now}; git push`);
     } catch (e) {
         console.log("error: " + e)
     }
