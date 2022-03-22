@@ -37,17 +37,20 @@ class Email {
 
     static fetch = async (): Promise<string[]> => {
         const titles = await PageBuilder.getPostNames();
+
         await Promise.all(titles.map(async (title) => {
             return await Email.initDB(title)
         }));
+
+        await PageBuilder.buildIndex(titles);
         await client.connect();
         const messages: Message[] = await client.retrieveAll();
         await client.quit();
 
         const newReplies: string[] = (await Promise.all(messages.map(async m => {
             const [, afterPlus] = m.to[0].address.split('+');
-            const [postTitle] = afterPlus.split('@');
-            if (titles.includes(postTitle)) {
+            const [postTitle] = afterPlus?.split('@');
+            if (postTitle && titles.includes(postTitle)) {
                 await Email.save(m, postTitle);
                 return postTitle;
             }

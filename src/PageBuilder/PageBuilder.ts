@@ -38,6 +38,14 @@ export class PageBuilder {
         }))
     }
 
+    static buildIndex = async (titles: string[]) => {
+        const links = titles.map(title => {
+            return `<li><a href="/${title}.html">${title}</a></li>`
+        }).join('');
+        const html = PageBuilder.wrap(`<ul>${links}</ul>`)
+        return await FS.writeFile(`./site/index.html`, html)
+    }
+
     static wrap = (htmlString: string) => {
         return head + htmlString + foot;
     }

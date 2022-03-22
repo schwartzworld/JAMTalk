@@ -124,14 +124,17 @@ var Email = /** @class */ (function () {
                         }); }))];
                 case 2:
                     _b.sent();
-                    return [4 /*yield*/, client.connect()];
+                    return [4 /*yield*/, PageBuilder_1.PageBuilder.buildIndex(titles)];
                 case 3:
                     _b.sent();
-                    return [4 /*yield*/, client.retrieveAll()];
+                    return [4 /*yield*/, client.connect()];
                 case 4:
+                    _b.sent();
+                    return [4 /*yield*/, client.retrieveAll()];
+                case 5:
                     messages = _b.sent();
                     return [4 /*yield*/, client.quit()];
-                case 5:
+                case 6:
                     _b.sent();
                     return [4 /*yield*/, Promise.all(messages.map(function (m) { return __awaiter(void 0, void 0, void 0, function () {
                             var _b, afterPlus, _c, postTitle;
@@ -139,8 +142,8 @@ var Email = /** @class */ (function () {
                                 switch (_d.label) {
                                     case 0:
                                         _b = __read(m.to[0].address.split('+'), 2), afterPlus = _b[1];
-                                        _c = __read(afterPlus.split('@'), 1), postTitle = _c[0];
-                                        if (!titles.includes(postTitle)) return [3 /*break*/, 2];
+                                        _c = __read(afterPlus === null || afterPlus === void 0 ? void 0 : afterPlus.split('@'), 1), postTitle = _c[0];
+                                        if (!(postTitle && titles.includes(postTitle))) return [3 /*break*/, 2];
                                         return [4 /*yield*/, Email.save(m, postTitle)];
                                     case 1:
                                         _d.sent();
@@ -149,7 +152,7 @@ var Email = /** @class */ (function () {
                                 }
                             });
                         }); }))];
-                case 6:
+                case 7:
                     newReplies = (_b.sent()).filter(function (m) { return !!m; });
                     return [2 /*return*/, __spreadArray([], __read(new Set(newReplies)), false)];
             }

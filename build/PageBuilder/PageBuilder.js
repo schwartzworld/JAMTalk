@@ -84,6 +84,20 @@ var PageBuilder = /** @class */ (function () {
             return [2 /*return*/];
         });
     }); };
+    PageBuilder.buildIndex = function (titles) { return __awaiter(void 0, void 0, void 0, function () {
+        var links, html;
+        return __generator(_a, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    links = titles.map(function (title) {
+                        return "<li><a href=\"/".concat(title, ".html\">").concat(title, "</a></li>");
+                    }).join('');
+                    html = PageBuilder.wrap("<ul>".concat(links, "</ul>"));
+                    return [4 /*yield*/, FS_1.FS.writeFile("./site/index.html", html)];
+                case 1: return [2 /*return*/, _b.sent()];
+            }
+        });
+    }); };
     PageBuilder.wrap = function (htmlString) {
         return head + htmlString + foot;
     };

@@ -40,7 +40,7 @@ exports.main = void 0;
 var Email_1 = require("./Email/Email");
 var PageBuilder_1 = require("./PageBuilder/PageBuilder");
 var main = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var newPostTitles, x;
+    var newPostTitles;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, Email_1["default"].fetch()];
@@ -48,7 +48,7 @@ var main = function () { return __awaiter(void 0, void 0, void 0, function () {
                 newPostTitles = _a.sent();
                 return [4 /*yield*/, PageBuilder_1.PageBuilder.buildNew(newPostTitles)];
             case 2:
-                x = _a.sent();
+                _a.sent();
                 return [2 /*return*/];
         }
     });
