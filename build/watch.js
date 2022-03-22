@@ -37,18 +37,46 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var ChildProcess_1 = require("./ChildProcess/ChildProcess");
+var timeout = function () {
+    console.log("begin timeout ".concat(new Date().toLocaleTimeString()));
+    return new Promise(function (resolve) {
+        setTimeout(function () {
+            resolve();
+        }, 5000);
+    });
+};
 var run = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var now;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                console.log('begin');
-                return [4 /*yield*/, ChildProcess_1.ChildProcess.exec("yarn start")];
+            case 0: return [4 /*yield*/, timeout()];
             case 1:
+                _a.sent();
+                now = new Date().toLocaleTimeString();
+                console.log("end timeout ".concat(now));
+                console.log("begin build ".concat(now));
+                return [4 /*yield*/, ChildProcess_1.ChildProcess.exec("yarn start")];
+            case 2:
+                _a.sent();
+                console.log("finish build ".concat(now));
+                return [4 /*yield*/, ChildProcess_1.ChildProcess.exec("git add -A && git commit -m \"new build ".concat(now, "\" && git push"))];
+            case 3:
                 _a.sent();
                 return [2 /*return*/];
         }
     });
 }); };
-setInterval(function () {
-    run().then(function () { console.log('end'); });
-}, 10000);
+var main = function () { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (!(1 === 1)) return [3 /*break*/, 2];
+                return [4 /*yield*/, run()];
+            case 1:
+                _a.sent();
+                return [3 /*break*/, 0];
+            case 2: return [2 /*return*/];
+        }
+    });
+}); };
+main();
