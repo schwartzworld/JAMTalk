@@ -20,7 +20,7 @@ const run = async () => {
         console.log(`finish build ${now}`)
         await ChildProcess.exec(`git add -A && git commit -m "new build ${now}" && git push`);
     } catch (e) {
-        console.log("error: " + e.message)
+        console.log("error: " + e)
     }
 };
 
