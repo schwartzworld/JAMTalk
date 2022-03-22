@@ -23,6 +23,11 @@ const head = `
 `;
 
 const foot = `
+<small>
+	Repo available to view  <a href="https://github.com/schwartzworld/JAMTalk">
+		GitHub
+	</a>
+</small>
 </body>
 
 </html>

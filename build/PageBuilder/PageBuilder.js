@@ -66,7 +66,7 @@ var FS_1 = require("../FS/FS");
 var Post_1 = require("../Post/Post");
 var ChildProcess_1 = require("../ChildProcess/ChildProcess");
 var head = "\n<!doctype html>\n<html class=\"no-js\" lang=\"\">\n\n<head>\n  <meta charset=\"utf-8\">\n  <title>schwartz.world</title>\n  <link rel=\"stylesheet\" href=\"https://unpkg.com/sakura.css/css/sakura.css\" type=\"text/css\">\n  <style>\n    .qr {\n        position: fixed;\n        right: 3rem;\n        top: 3rem;\n    }\n  </style>\n</head>\n\n<body>\n";
-var foot = "\n</body>\n\n</html>\n";
+var foot = "\n<small>\n\tRepo available to view  <a href=\"https://github.com/schwartzworld/JAMTalk\">\n\t\tGitHub\n\t</a>\n</small>\n</body>\n\n</html>\n";
 var PageBuilder = /** @class */ (function () {
     function PageBuilder() {
     }
