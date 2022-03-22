@@ -1,0 +1,64 @@
+
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>schwartz.world</title>
+  <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
+  <style>
+    .qr {
+        position: fixed;
+        right: 3rem;
+        top: 3rem;
+    }
+  </style>
+</head>
+
+<body>
+<h2 id="its-all-about-the-issues">It’s All About the Issues</h2>
+<style>
+    img {
+        height: 100px;
+        width: 100px;
+    }
+    ul {
+        list-style: none;
+    }
+</style>
+<a href="https://github.com/ianschwartz/site/issues/2">Join the conversation</a>
+<ul id="comments">
+</ul>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.0.3/showdown.min.js" async defer></script>
+<script>
+    const comments = document.querySelector('#comments');
+    const getData = async () => {
+        const res = await fetch('https://api.github.com/repos/ianschwartz/site/issues/2/comments');
+        return res.json();
+    };
+    const buildComments = async () => {
+        const comments = await getData();
+        return comments.map(c => {
+            const userdata = `
+<li>
+    <a href="${c.user.html_url}">
+        <img src="${c.user.avatar_url}" />
+    </a>
+    <small>${c.created_at}</small>
+    <div><a href="${c.user.html_url}">${c.user.login} commented: </a></div>
+    
+</li>`;
+
+            const body = `<div>${new showdown.Converter().makeHtml(c.body)}</div>`
+            return `${userdata} ${body}`
+        }).join('');
+    };
+    buildComments().then(d => {
+        comments.innerHTML = d;
+    })
+</script>
+<p><a href="/300-email.html">next</a></p>
+<img class="qr" src="/qrs/211-github-issues.png" alt="mailto:boston.jam.stack+211-github-issues@gmail.com" /><a href="mailto:boston.jam.stack+211-github-issues@gmail.com">Email to leave a comment!</a>
+</body>
+
+</html>
