@@ -10,13 +10,18 @@ const timeout = (): Promise<void> => {
 }
 
 const run = async () => {
-    await timeout()
-    const now = new Date().toLocaleTimeString();
-    console.log(`end timeout ${now}`)
-    console.log(`begin build ${now}`)
-    await ChildProcess.exec(`yarn start`);
-    console.log(`finish build ${now}`)
-    await ChildProcess.exec(`git add -A && git commit -m "new build ${now}" && git push`);
+    try {
+
+        await timeout()
+        const now = new Date().toLocaleTimeString();
+        console.log(`end timeout ${now}`)
+        console.log(`begin build ${now}`)
+        await ChildProcess.exec(`yarn start`);
+        console.log(`finish build ${now}`)
+        await ChildProcess.exec(`git add -A && git commit -m "new build ${now}" && git push`);
+    } catch (e) {
+        console.log("error: " + e.message)
+    }
 };
 
 const main = async () => {

@@ -46,10 +46,12 @@ var timeout = function () {
     });
 };
 var run = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var now;
+    var now, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, timeout()];
+            case 0:
+                _a.trys.push([0, 4, , 5]);
+                return [4 /*yield*/, timeout()];
             case 1:
                 _a.sent();
                 now = new Date().toLocaleTimeString();
@@ -62,7 +64,12 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                 return [4 /*yield*/, ChildProcess_1.ChildProcess.exec("git add -A && git commit -m \"new build ".concat(now, "\" && git push"))];
             case 3:
                 _a.sent();
-                return [2 /*return*/];
+                return [3 /*break*/, 5];
+            case 4:
+                e_1 = _a.sent();
+                console.log("error: " + e_1.message);
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
         }
     });
 }); };
