@@ -38,7 +38,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var ChildProcess_1 = require("./ChildProcess/ChildProcess");
 var timeout = function () {
-    console.log("begin timeout ".concat(new Date().toLocaleTimeString()));
     return new Promise(function (resolve) {
         setTimeout(function () {
             resolve();

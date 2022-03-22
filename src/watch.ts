@@ -1,7 +1,6 @@
 import {ChildProcess} from "./ChildProcess/ChildProcess";
 
 const timeout = (): Promise<void> => {
-    console.log(`begin timeout ${new Date().toLocaleTimeString()}`)
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve()
