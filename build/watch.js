@@ -49,7 +49,7 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
             case 1:
                 _a.sent();
                 console.log("finish build ".concat(now));
-                return [4 /*yield*/, ChildProcess_1.ChildProcess.exec("git add -A && git commit -m \"new build ".concat(now, "\" git push"))];
+                return [4 /*yield*/, ChildProcess_1.ChildProcess.exec("git add -A && git commit -m \"new build ".concat(now, "\" && git push"))];
             case 2:
                 _a.sent();
                 return [3 /*break*/, 4];
