@@ -37,19 +37,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var ChildProcess_1 = require("./ChildProcess/ChildProcess");
-var timeout = function () {
-    return new Promise(function (resolve) {
-        setTimeout(function () {
-            resolve();
-        }, 10000);
-    });
-};
 var run = function () { return __awaiter(void 0, void 0, void 0, function () {
     var now, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 4, , 5]);
+                _a.trys.push([0, 3, , 4]);
                 now = new Date().toLocaleTimeString();
                 console.log("begin build ".concat(now));
                 return [4 /*yield*/, ChildProcess_1.ChildProcess.exec("yarn start")];
@@ -59,31 +52,13 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                 return [4 /*yield*/, ChildProcess_1.ChildProcess.exec("git add -A && git commit -m \"new build ".concat(now, "\" && git push"))];
             case 2:
                 _a.sent();
-                console.log("begin timeout ".concat(now));
-                return [4 /*yield*/, timeout()];
+                return [3 /*break*/, 4];
             case 3:
-                _a.sent();
-                console.log("end timeout ".concat(now));
-                return [3 /*break*/, 5];
-            case 4:
                 e_1 = _a.sent();
                 console.log("error: " + e_1);
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); };
-var main = function () { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                if (!(1 === 1)) return [3 /*break*/, 2];
-                return [4 /*yield*/, run()];
-            case 1:
-                _a.sent();
-                return [3 /*break*/, 0];
-            case 2: return [2 /*return*/];
-        }
-    });
-}); };
-main();
+run().then(function () { return console.log('done'); });
