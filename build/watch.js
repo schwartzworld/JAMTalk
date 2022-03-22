@@ -41,7 +41,7 @@ var timeout = function () {
     return new Promise(function (resolve) {
         setTimeout(function () {
             resolve();
-        }, 60000);
+        }, 10000);
     });
 };
 var run = function () { return __awaiter(void 0, void 0, void 0, function () {

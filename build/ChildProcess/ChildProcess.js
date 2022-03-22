@@ -7,13 +7,23 @@ var ChildProcess = /** @class */ (function () {
     }
     ChildProcess.exec = function (command) {
         return new Promise(function (resolve, reject) {
-            child_process.exec(command, function (err, stdout, stderr) {
-                if (err) {
-                    reject("exec error: ".concat(err));
-                }
+            child_process.exec(command, function (error, stdout, stderr) {
                 if (stderr)
                     console.error(stderr);
-                resolve(stdout);
+                if (error) {
+                    if (error.code === 1) {
+                        // leaks present
+                        resolve(stdout);
+                    }
+                    else {
+                        // gitleaks error
+                        reject(error);
+                    }
+                }
+                else {
+                    // no leaks
+                    resolve(stdout);
+                }
             });
         });
     };
