@@ -10,5 +10,5 @@ date: September 22, 2020
 - Has a dog that looks like a cow
 
 <img src="/madcow.jpeg" />
-[next](/3-aboutcg.html)
+[next](/003-aboutcg.html)
 

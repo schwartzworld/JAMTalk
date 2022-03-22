@@ -9,4 +9,8 @@ Car shopping is complicated. At CarGurus, we use data and technology to make it 
 
 ### We are hiring! Please reach out!
 
-[next](/3-aboutcg.html)
+<a href="mailto:ian@schwartz.world">ian@schwartz.world</a>
+
+<img src="/qrs/contact.png" alt="ian@schwartz.world" />
+
+[next](/101-pandoc.html)
