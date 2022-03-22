@@ -42,7 +42,7 @@ var timeout = function () {
     return new Promise(function (resolve) {
         setTimeout(function () {
             resolve();
-        }, 5000);
+        }, 60000);
     });
 };
 var run = function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -51,19 +51,20 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 4, , 5]);
-                return [4 /*yield*/, timeout()];
-            case 1:
-                _a.sent();
                 now = new Date().toLocaleTimeString();
-                console.log("end timeout ".concat(now));
                 console.log("begin build ".concat(now));
                 return [4 /*yield*/, ChildProcess_1.ChildProcess.exec("yarn start")];
-            case 2:
+            case 1:
                 _a.sent();
                 console.log("finish build ".concat(now));
                 return [4 /*yield*/, ChildProcess_1.ChildProcess.exec("git add -A && git commit -m \"new build ".concat(now, "\" && git push"))];
+            case 2:
+                _a.sent();
+                console.log("begin timeout ".concat(now));
+                return [4 /*yield*/, timeout()];
             case 3:
                 _a.sent();
+                console.log("end timeout ".concat(now));
                 return [3 /*break*/, 5];
             case 4:
                 e_1 = _a.sent();

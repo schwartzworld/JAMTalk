@@ -5,20 +5,21 @@ const timeout = (): Promise<void> => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve()
-        }, 5000)
+        }, 60000)
     })
 }
 
 const run = async () => {
     try {
 
-        await timeout()
         const now = new Date().toLocaleTimeString();
-        console.log(`end timeout ${now}`)
         console.log(`begin build ${now}`)
         await ChildProcess.exec(`yarn start`);
         console.log(`finish build ${now}`)
         await ChildProcess.exec(`git add -A && git commit -m "new build ${now}" && git push`);
+        console.log(`begin timeout ${now}`)
+        await timeout()
+        console.log(`end timeout ${now}`)
     } catch (e) {
         console.log("error: " + e)
     }
