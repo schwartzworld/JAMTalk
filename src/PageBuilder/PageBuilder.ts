@@ -9,7 +9,7 @@ const head = `
 <head>
   <meta charset="utf-8">
   <title>schwartz.world</title>
-  <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
+  <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura-dark.css" type="text/css">
   <style>
     .qr {
         position: fixed;
